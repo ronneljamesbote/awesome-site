@@ -1,0 +1,20 @@
+name: deploy
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: action/checkout@v3
+      - name: Composer
+        uses: php-actions/composer@v6
+        with:
+          php_extensions: gd zip pdo pdo_mysql pcntl
+          php_version: 8.1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          extensions: gd zip pdo pdo_mysql pcntl
+          php-version: 8.1
+          ini-values: max_input_vars=10000
